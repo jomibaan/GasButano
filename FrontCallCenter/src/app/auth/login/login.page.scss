@@ -1,0 +1,33 @@
+
+/* Imagen */
+.login-image {
+  max-width: 70%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+.login-image:hover {
+  transform: scale(1.05);
+}
+
+/* Card */
+.login-card {
+  background: var(--blanco);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+.login-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+
+/* Responsive: en móvil la imagen se va arriba */
+@media (max-width: 991px) {
+  .login-image {
+    max-width: 50%;
+    margin-bottom: 2rem;
+  }
+  .login-card {
+    padding: 2rem;
+  }
+}

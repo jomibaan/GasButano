@@ -1,0 +1,175 @@
+.section-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  margin-left: 8px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-summary-card {
+  border-radius: 12px;
+  background: white;
+  padding: 10px;
+}
+
+.large-icon {
+  font-size: 4.5rem;
+  margin-bottom: 0;
+}
+
+.status-badge {
+  font-weight: 600;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.small-text {
+  font-size: 0.85rem;
+}
+
+.data-list {
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.data-list ion-item {
+  --padding-start: 15px;
+}
+
+.data-list ion-item ion-label {
+  font-weight: 500;
+  color: #555;
+}
+
+.domicilio-card {
+  border-radius: 8px;
+  background: white;
+}
+
+.domicilio-card ion-item {
+  --padding-start: 15px;
+}
+
+.custom-input-item {
+  --background: #fff;
+
+  border-radius: 8px;
+
+  border: 1px solid #ddd;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+
+.custom-input-item:focus-within,
+.custom-input-item:hover {
+  border-color: var(--ion-color-primary);
+
+  box-shadow: 0 0 5px rgba(var(--ion-color-primary-rgb), 0.2);
+}
+
+
+.custom-input-item ion-icon {
+  color: var(--ion-color-medium);
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+.domicilio-container {
+  max-width: 700px;
+  margin: 20px auto;
+  background: var(--ion-color-light, #ffffff);
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.domicilio-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+.accordion-header ion-icon {
+  font-size: 1.4rem;
+  margin-right: 10px;
+  color: var(--primario);
+}
+
+.accordion-header ion-item {
+  font-size: 1.4rem;
+  margin-right: 10px;
+  background: var(--primario);
+}
+
+
+.main-address-line {
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  color: var(--primario);
+
+  display: block;
+
+}
+
+
+.accordion-header p {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+
+.accordion-header ion-note {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+}
+
+.edit-toggle-container {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+
+}
+
+.edit-button-position {
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  --padding-end: 0;
+  --padding-start: 0;
+}
+
+
+.editable-field {
+
+  margin-bottom: 0 !important;
+}
+
+
+.edit-input-group {
+  --background: var(--ion-color-light, #f8f9fa);
+  /* Fondo sutil para el input */
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 6px;
+  margin: 5px 0;
+  border: 1px solid var(--ion-color-medium-tint);
+  box-shadow: none;
+}
+
+
+.edit-input-group-tel {
+  @extend .edit-input-group;
+  /* Hereda los estilos base */
+  margin: 10px 0;
+  border: 1px solid var(--ion-color-medium-tint);
+}

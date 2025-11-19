@@ -1,0 +1,80 @@
+// Estilos generales de la página
+.unauthorized-page {
+  --background: #f8f9fa;
+  /* Fondo gris claro, típico de Bootstrap */
+}
+
+// Estilos de la tarjeta de contenido
+.unauthorized-card {
+  max-width: 500px;
+  /* Limita el ancho en pantallas grandes */
+  border-radius: 15px;
+  border-top: 5px solid var(--ion-color-danger);
+  /* Línea de color de alerta */
+}
+
+// Contenedor del Icono
+.icon-container {
+  font-size: 5rem;
+  color: var(--ion-color-danger);
+  position: relative;
+
+  // Estilo del Icono de Ionic
+  .animated-icon {
+    font-size: inherit;
+    color: inherit;
+    animation:
+      shake 0.8s cubic-bezier(.36, .07, .19, .97) both infinite,
+      pulse-shadow 2s infinite ease-in-out;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    display: block;
+  }
+}
+
+
+/* -------------------------------------- */
+/* DEFINICIÓN DE ANIMACIONES */
+/* -------------------------------------- */
+
+// 1. Animación de "Vibración" (Shake) para dar sensación de alerta
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+// 2. Animación de "Sombra Pulsante" para destacar el icono
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5);
+    /* Rojo de Bootstrap danger */
+  }
+
+  70% {
+    box-shadow: 0 0 0 15px rgba(220, 53, 69, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}

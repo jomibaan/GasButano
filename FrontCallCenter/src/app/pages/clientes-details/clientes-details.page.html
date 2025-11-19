@@ -1,0 +1,179 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Detalles de Cliente</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding bg-light" mode="ios">
+  <!-- Contenedor principal con límite de ancho -->
+  <div class="container detail-container">
+
+    <!-- 1. Tarjeta de Perfil y Resumen -->
+    <ion-card class="profile-summary-card ion-margin-bottom shadow">
+      <ion-card-content class="ion-text-center">
+
+        <!-- Botón de Edición (Arriba a la derecha) -->
+        <div class="edit-toggle-container">
+          <ion-button fill="clear" size="small" [color]="isEditing ? 'success' : 'medium'" (click)="toggleEditMode()"
+            class="edit-button-position">
+            <ion-icon slot="icon-only" [name]="isEditing ? 'checkmark-circle' : 'create-outline'"></ion-icon>
+          </ion-button>
+        </div>
+
+        <!-- Icono de Perfil -->
+        <ion-icon name="person-circle" class="large-icon" color="primary"></ion-icon>
+
+        <!-- 1. Campo: NOMBRES -->
+        <h1 class="fw-bold text-dark mt-3 mb-1 editable-field">
+          <span *ngIf="!isEditing">{{ cliente?.nombres }} {{ cliente?.apellidos }}</span>
+
+          <ion-item *ngIf="isEditing" lines="none" class="edit-input-group">
+            <ion-input label="Nombres" label-placement="floating" type="text" [(ngModel)]="cliente.nombres"
+              class="fw-bold"></ion-input>
+          </ion-item>
+        </h1>
+
+        <!-- 2. Campo: APELLIDOS (Se muestra en la misma línea que el nombre si no estamos editando) -->
+        <h1 *ngIf="isEditing" class="fw-bold text-dark mb-1 editable-field">
+          <ion-item lines="none" class="edit-input-group">
+            <ion-input label="Apellidos" label-placement="floating" type="text" [(ngModel)]="cliente.apellidos"
+              class="fw-bold"></ion-input>
+          </ion-item>
+        </h1>
+
+
+        <!-- 3. Campo: TELÉFONO -->
+        <p class="text-secondary small-text editable-field">
+          <span *ngIf="!isEditing">
+            <ion-icon name="call-outline" color="medium"></ion-icon> {{ cliente?.telefono }}
+          </span>
+
+          <ion-item *ngIf="isEditing" lines="none" class="edit-input-group-tel">
+            <ion-icon slot="start" name="call-outline"></ion-icon>
+            <ion-input label="Teléfono" label-placement="floating" type="tel"
+              [(ngModel)]="cliente.telefono"></ion-input>
+          </ion-item>
+        </p>
+
+        <!-- 4. Metadata (No editable) -->
+        <p *ngIf="!isEditing" class="text-secondary small-text ion-padding-top">
+          Cliente desde: {{ cliente?.createdAt | date:'mediumDate' }}
+        </p>
+
+        <!-- Badge de Estado (No editable aquí) -->
+        <ion-badge *ngIf="!isEditing" slot="end" [color]="cliente?.estado ? 'success' : 'danger'"
+          class="status-badge ion-margin-top">
+          {{ cliente?.estado ? 'ACTIVO' : 'INACTIVO' }}
+        </ion-badge>
+
+        <!-- Botón de Guardar que aparece SOLO cuando se está editando -->
+        <ion-button *ngIf="isEditing" expand="block" class="btn-principal" (click)="saveChanges()">
+          <ion-icon slot="start" name="save-outline"></ion-icon>
+          Guardar Cambios
+        </ion-button>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- 3. Acceso a Domicilios (Simulación) -->
+    <h2 class="section-title ion-padding-top">Domicilios Registrados {{cliente?.domicilios?.length || 0 }}</h2>
+    <div class="container text-center domicilio-container">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item class="custom-input-item mb-3" lines="none">
+              <ion-icon slot="start" name="home-outline"></ion-icon>
+              <ion-input label="Calle" label-placement="floating" type="text" name="calle" [(ngModel)]="calle"
+                required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="custom-input-item mb-3" lines="none">
+              <ion-icon slot="start" name="key-outline"></ion-icon>
+              <ion-input label="Número" label-placement="floating" type="text" name="numero" [(ngModel)]="numero"
+                required></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item class="custom-input-item mb-3" lines="none">
+              <ion-icon slot="start" name="map-outline"></ion-icon>
+              <ion-input label="Colonia" label-placement="floating" type="text" name="colonia" [(ngModel)]="colonia"
+                required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="custom-input-item mb-3" lines="none">
+              <ion-icon slot="start" name="pin-outline"></ion-icon>
+              <ion-input label="Código Postal" label-placement="floating" type="text" name="cp" [(ngModel)]="cp"
+                required></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-item class="custom-input-item mb-3" lines="none">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <ion-input label="Referencia" label-placement="floating" type="text" name="referencia" [(ngModel)]="referencia"
+          required></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="btn-principal" (click)="agregarDomicilio()">
+        Agregar Domicilio
+      </ion-button>
+    </div>
+    <ion-accordion-group class="domicilios-group">
+      <ion-accordion [value]="'domicilio-' + i" *ngFor="let dom of cliente?.domicilios; let i = index">
+
+        <ion-item slot="header" color="light" class="accordion-header">
+          <ion-icon slot="start" name="location-outline" color="dark"></ion-icon>
+          <ion-label>
+            <span class="main-address-line">{{ dom.colonia }}</span>
+            <p class="ion-text-wrap">{{ dom.calle }} #{{ dom.numero }}</p>
+          </ion-label>
+          <ion-note slot="end" color="medium">Ver Detalles</ion-note>
+        </ion-item>
+
+        <div class="ion-padding accordion-content" slot="content">
+          <ion-text color="dark">
+            <p><strong>Colonia:</strong> {{ dom.colonia }}</p>
+            <p><strong>Calle y Número:</strong> {{ dom.calle }} #{{ dom.numero }}</p>
+            <p><strong>Referencias:</strong> {{ dom.referencia || 'N/A' }}</p>
+            <p><strong>Ciudad y CP:</strong> {{ dom.ciudad }} (C.P. {{ dom.cp }})</p>
+          </ion-text>
+
+
+          <ion-button expand="block" fill="outline" color="primary" class="ion-margin-top">
+            <ion-icon slot="start" name="map-outline"></ion-icon> Crear Envio
+          </ion-button>
+        </div>
+
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <h2 class="section-title ion-padding-top">Historial de Pedidos</h2>
+    <ion-card class="domicilio-card shadow-sm">
+      <ion-item button detail class="ion-padding-vertical">
+        <ion-icon slot="start" name="map-outline" color="warning"></ion-icon>
+        <ion-label class="fw-bold">
+          Gestionar (2 Domicilios)
+          <p class="text-muted small">Ver, editar o agregar direcciones de envío.</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+
+  </div>
+</ion-content>

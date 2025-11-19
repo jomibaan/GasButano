@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true" mode="ios" class="login-page">
+  <section class="vh-100 d-flex align-items-center">
+    <div class="container">
+      <div class="row d-flex align-items-center justify-content-center">
+
+        <!-- Imagen -->
+        <div class="col-lg-6 col-md-8 mb-4 mb-lg-0 text-center">
+          <img src="assets/icon/logo.png" class="img-fluid login-image" alt="App logo">
+        </div>
+
+        <!-- Formulario -->
+        <div class="col-lg-5 col-md-8">
+          <div class="card shadow-lg border-0 rounded-4 p-5 login-card">
+            <h2 class="text-center text-primary mb-4 fw-bold">Bienvenido de nuevo</h2>
+            <p class="text-center text-muted mb-4">Por favor, Inicia Sesión con tu cuenta</p>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4 text-center">
+              <ion-input [(ngModel)]="identifier" class="form-control form-control-lg ion-input-custom" type="text"
+                placeholder="Username or Email">
+              </ion-input>
+              <label class="form-label">Usuario o Correo Electrónico</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-3 text-center">
+              <ion-input type="password" [(ngModel)]="password" class="form-control form-control-lg ion-input-custom"
+                placeholder="Password">
+              </ion-input>
+              <label class="form-label">Contraseña</label>
+            </div>
+
+            <!-- Forgot password -->
+            <div class="d-flex justify-content-end mb-3">
+              <p routerLink="/forgot" tabindex="0" class="link small mb-0">
+                Olvidé mi contraseña
+              </p>
+            </div>
+
+            <!-- Button -->
+            <ion-button (click)="login()" class="btn-principal" expand="block">
+              Log In
+            </ion-button>
+
+            <a href="http://localhost:1337/api/connect/google">
+              <ion-button class="btn-google" expand="block">
+                <ion-icon slot="start" name="logo-google"> </ion-icon>
+                Iniciar con google
+              </ion-button>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

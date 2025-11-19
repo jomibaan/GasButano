@@ -1,0 +1,47 @@
+<ion-content [fullscreen]="true" class="unauthorized-page ion-padding">
+
+  <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
+
+    <div class="card shadow-lg p-4 p-md-5 unauthorized-card">
+
+      <div class="icon-container mb-4 mx-auto">
+        <ion-icon name="shield-half-outline" class="animated-icon"></ion-icon>
+      </div>
+
+      <h1 class="display-4 fw-bold text-danger mb-3">
+        Acceso Denegado
+      </h1>
+
+      <p class="lead text-muted mb-4">
+        No tienes los permisos necesarios para acceder a esta sección.
+        Por favor, inicia sesión con una cuenta autorizada.
+      </p>
+
+      <small class="text-secondary mb-3">
+        Código de Error: 401 Unauthorized
+      </small>
+
+      <div class="timer-section mb-5">
+
+        <p class="timer-message fw-bold" [class.text-danger]="countdown > 0" [class.text-success]="countdown === 0">
+          {{ timerMessage }}
+        </p>
+
+        <h2 *ngIf="countdown > 0" class="countdown-display display-2 fw-bolder" [class.text-danger]="countdown < 5">
+          {{ countdown }}
+        </h2>
+
+        <p *ngIf="countdown === 0" class="final-message display-6 fw-bolder">
+          JAJAJAJA, No es cierto pero te vas pal Lobby
+        </p>
+
+      </div>
+      <ion-button (click)="goToLogin()" expand="block" fill="solid" shape="round" color="primary" class="w-75 mx-auto">
+        Ir a Iniciar Sesión
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
+      </ion-button>
+
+    </div>
+  </div>
+
+</ion-content>

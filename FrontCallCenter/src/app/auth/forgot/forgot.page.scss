@@ -1,0 +1,33 @@
+
+
+/* Imagen */
+.forgot-image {
+  max-width: 70%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+.forgot-image:hover {
+  transform: scale(1.05);
+}
+
+/* Card */
+.forgot-card {
+  background: var(--blanco);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+.forgot-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Responsive */
+@media (max-width: 991px) {
+  .forgot-image {
+    max-width: 50%;
+    margin-bottom: 2rem;
+  }
+  .forgot-card {
+    padding: 2rem;
+  }
+}

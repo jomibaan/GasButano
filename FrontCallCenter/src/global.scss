@@ -1,0 +1,156 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+// @import "@ionic/angular/css/palettes/dark.system.css";
+/* Fondo con degradado */
+
+:root {
+  --primario: #004080;
+  --primario-light: #88a3bd;
+  --primario-dark: #062f57;
+  --secundario: #f9a825;
+  --tercero: #e85c0d;
+  --rojo: #c43131;
+  --rojo-dark: #790c0c;
+  /* Naranja quemado, complementa el mostaza */
+  --tercero-light: #ffe4cc;
+  /* Versión clara y cálida del naranja */
+
+  --blanco: #ffffff;
+  /* Blanco ligeramente cálido */
+  --negro: #1a1a1a;
+  /* Negro suave (no tan agresivo) */
+
+  --gris: #b0b0b0;
+  /* Gris medio neutro */
+  --gris-claro: #e6e6e6;
+  /* Gris claro armónico con el blanco */
+
+  --ion-color-primary: #004080;
+  --ion-color-secondary: #f9a825;
+}
+
+
+ion-content {
+  --background: var(--gris-claro);
+}
+
+.link {
+  text-decoration: none;
+  color: #222fff;
+  font-weight: 500;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Línea animada debajo */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.link:hover {
+  color: var(--primario);
+  /* azul corporativo */
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+a{
+  text-decoration: none;
+}
+
+.btn-principal {
+  font-size: 1rem;
+  height: 48px;
+  color: var(--blanco);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+
+.btn-google {
+  font-size: 1rem;
+  // height: 38px;
+  color: var(--negro);
+  border-radius: 15px;
+  border: 1px solid var(--negro);
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.btn-google {
+  --background: var(--blanco);
+  --background-hover: var(--rojo);
+  --background-activated: var(--rojo);
+}
+.btn-google:hover {
+  color: var(--blanco);
+}
+
+.btn-principal {
+  background-color: var(--primario);
+  --background-hover: var(--secundario);
+  --color-hover: var(--blanco);
+  --background-activated: var(--secundario);
+}
+
+/* Inputs */
+// .ion-input-custom {
+//   --background: #fff;
+//   --padding-start: 14px;
+//   --padding-end: 14px;
+//   border-radius: 12px;
+//   border: 1px solid var(--gris);
+//   font-size: 16px;
+// }
+.ion-input-custom:focus-within {
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.2);
+}

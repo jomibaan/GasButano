@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true" mode="ios" class="forgot-password-page">
+  <section class="vh-100 d-flex align-items-center">
+    <div class="container">
+      <div class="row d-flex align-items-center justify-content-center">
+
+        <!-- Imagen -->
+        <div class="col-lg-6 col-md-8 mb-4 mb-lg-0 text-center">
+          <img src="assets/icon/logo.png" alt="Recuperar contraseña" class="img-fluid forgot-image">
+        </div>
+
+        <!-- Formulario -->
+        <div class="col-lg-5 col-md-8">
+          <div class="card shadow-lg border-0 rounded-4 p-5 forgot-card">
+
+            <h2 class="text-center text-primary mb-3 fw-bold">¿Olvidaste tu contraseña?</h2>
+            <p class="text-center text-muted mb-4">
+              Ingresa tu correo electrónico y te enviaremos un enlace para restablecerla.
+            </p>
+
+            <!-- Input -->
+            <div class="form-outline mb-4 text-center">
+              <ion-input type="email" [(ngModel)]="email" class="form-control form-control-lg ion-input-custom"
+                placeholder="Correo electrónico">
+              </ion-input>
+            </div>
+
+            <!-- Botón -->
+            <ion-button (click)="forgot()" class="btn-principal" expand="block" >
+              Enviar Correo
+            </ion-button>
+
+            <!-- Link volver -->
+            <div class="text-center mt-3">
+              <p routerLink="/login" tabindex="0" class="link small mb-0">
+                ← Volver al inicio de sesión
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

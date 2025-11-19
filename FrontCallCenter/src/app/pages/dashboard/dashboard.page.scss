@@ -1,0 +1,55 @@
+
+.container-fluid {
+  max-width: 1400px;
+  /* Limita el ancho en pantallas grandes (web) */
+  margin: 0 auto;
+}
+
+/* Estilo para las tarjetas de métricas */
+.metric-card {
+  height: 100%;
+  border-radius: 0.5rem;
+  /* Esquinas ligeramente redondeadas */
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  /* Pequeño efecto hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.metric-card ion-card-header {
+  padding-bottom: 0.5rem;
+}
+
+.metric-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.border-start {
+  /* Asegura que el borde de Bootstrap funcione correctamente con la tarjeta Ionic */
+  border-left-width: 5px !important;
+}
+
+/* Estilo para el placeholder de la gráfica */
+.chart-placeholder {
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para el listado de acciones rápidas */
+ion-list {
+  background: white;
+}
+
+ion-item h2 {
+  font-size: 1rem;
+  font-weight: 500;
+}

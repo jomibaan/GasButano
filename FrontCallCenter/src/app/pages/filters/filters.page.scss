@@ -1,0 +1,62 @@
+
+.filter-container {
+  max-width: 800px;
+  /* Centra el panel de filtros */
+  margin: 0 auto;
+}
+
+/* Tarjeta principal de filtros */
+.filter-card {
+  border-radius: 12px;
+  background: white;
+  margin-top: 10px;
+}
+
+.filter-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.section-title {
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  font-size: 1.4rem;
+}
+
+.filter-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+/* Estilo de los Inputs (Reutilizamos la clase de antes) */
+.custom-input-item {
+  --background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+.custom-input-item:focus-within,
+.custom-input-item:hover {
+  border-color: var(--ion-color-primary);
+  box-shadow: 0 0 5px rgba(var(--ion-color-primary-rgb), 0.2);
+}
+
+.custom-input-item ion-icon {
+  color: var(--ion-color-medium);
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+/* Botón de Generar Reporte */
+.generate-button {
+  --border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

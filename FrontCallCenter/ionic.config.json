@@ -1,0 +1,7 @@
+{
+  "name": "CallCenter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

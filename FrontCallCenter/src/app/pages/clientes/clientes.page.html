@@ -1,0 +1,220 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Panel de Clientes</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding bg-light" mode="ios">
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <ion-button class="btn-principal" (click)="setOpen(true)">
+        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+        Nuevo Cliente
+      </ion-button>
+    </div>
+
+    <ion-modal [isOpen]="isModalOpen" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary" class="modal-toolbar">
+            <ion-title class="ion-text-center titulo-modal">Agregar Cliente</ion-title>
+            <ion-buttons slot="end">
+              <ion-button fill="clear" class="btn-cerrar" (click)="setOpen(false)">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="ion-padding" mode="ios">
+
+          <ion-item class="custom-input-item mb-3" lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-input label="Nombres" label-placement="floating" type="text" name="nombres" [(ngModel)]="nombres"
+              required></ion-input>
+          </ion-item>
+
+
+
+          <ion-item class="custom-input-item mb-3" lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-input label="Apellidos" label-placement="floating" type="text" name="apellidos" [(ngModel)]="apellidos"
+              required></ion-input>
+          </ion-item>
+
+          <ion-item class="custom-input-item mb-3" lines="none">
+            <ion-icon slot="start" name="call-outline"></ion-icon>
+            <ion-input label="Teléfono" label-placement="floating" type="tel" name="telefono" [(ngModel)]="telefono"
+              maxlength="10" required></ion-input>
+          </ion-item>
+
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item class="custom-input-item mb-3" lines="none">
+                  <ion-icon slot="start" name="home-outline"></ion-icon>
+                  <ion-input label="Calle" label-placement="floating" type="text" name="calle" [(ngModel)]="calle"
+                    required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item class="custom-input-item mb-3" lines="none">
+                  <ion-icon slot="start" name="key-outline"></ion-icon>
+                  <ion-input label="Número" label-placement="floating" type="text" name="numero" [(ngModel)]="numero"
+                    required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item class="custom-input-item mb-3" lines="none">
+                  <ion-icon slot="start" name="map-outline"></ion-icon>
+                  <ion-input label="Colonia" label-placement="floating" type="text" name="colonia" [(ngModel)]="colonia"
+                    required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item class="custom-input-item mb-3" lines="none">
+                  <ion-icon slot="start" name="pin-outline"></ion-icon>
+                  <ion-input label="Código Postal" label-placement="floating" type="text" name="cp" [(ngModel)]="cp"
+                    required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-item class="custom-input-item mb-3" lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-input label="Referencia" label-placement="floating" type="text" name="referencia"
+              [(ngModel)]="referencia" required></ion-input>
+          </ion-item>
+
+          <ion-button (click)="createCliente()" class="btn-principal" expand="block">
+            Agregar Cliente
+          </ion-button>
+
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-list lines="full" class="client-list-card shadow-sm">
+      <ng-container *ngIf="clientes.length > 0; else noclientes">
+        <ion-item *ngFor="let c of clientes" (click)="setOpenCliente(true, c)">
+          <ion-icon slot="start" name="person-circle-outline" color="primary"></ion-icon>
+          <ion-label>
+            <h3>{{ c.nombres }} {{ c.apellidos }}</h3>
+            <p>{{ c.telefono }}</p>
+          </ion-label>
+          <div slot="end" class="d-flex flex-column align-items-end">
+            <ion-button (click)="$event.stopPropagation(); deleteClientes(c.documentId)" class="btn-delete">
+              <ion-icon slot="start" color="light" name="trash-outline"></ion-icon> Borrar
+            </ion-button>
+            <ion-button (click)="$event.stopPropagation();" class=" btn-ver"
+              routerLink="/clientes/detalles/{{ c.documentId }}">
+              <ion-icon slot="start" name="pencil-outline"></ion-icon>
+              Ver
+            </ion-button>
+          </div>
+        </ion-item>
+      </ng-container>
+      <ng-template #noclientes>
+        <ion-item>
+          <ion-label class="text-center text-muted py-4">
+            <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+            <p class="mt-2">No se encontraron clientes o la lista está vacía.</p>
+          </ion-label>
+        </ion-item>
+      </ng-template>
+    </ion-list>
+
+
+    <ion-modal [isOpen]="isModalClienteOpen " (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary" class="modal-toolbar">
+            <ion-title class="ion-text-center titulo-modal">Detalles de {{ cliente?.nombres }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button fill="clear" class="btn-cerrar" (click)="setOpenCliente(false)">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding bg-modal" mode="ios">
+          <div class="container-fluid modal-content-wrapper">
+
+            <!-- 1. Tarjeta de Contacto Primario -->
+            <ion-card class="contact-card ion-margin-bottom shadow-md">
+              <ion-card-header class="ion-text-center">
+                <ion-card-title class="fw-bold text-dark ion-text-wrap">
+                  {{ cliente?.nombres }} {{ cliente?.apellidos }}
+                </ion-card-title>
+                <ion-card-subtitle class="text-secondary">
+                  <ion-icon name="call-outline"></ion-icon> {{ cliente?.telefono }}
+                </ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content class="ion-text-center">
+                <p class="text-muted small">Información de contacto principal.</p>
+              </ion-card-content>
+            </ion-card>
+
+            <!-- 2. Lista de Domicilios Registrados -->
+            <h2 class="section-title">Domicilios para Envío ({{ cliente?.domicilios?.length || 0 }})</h2>
+
+            <ion-list lines="none">
+
+              <ion-accordion-group class="domicilios-group">
+                <ion-accordion [value]="'domicilio-' + i" *ngFor="let dom of cliente?.domicilios; let i = index">
+
+                  <ion-item slot="header" color="light" class="accordion-header">
+                    <ion-icon slot="start" name="location-outline" color="dark"></ion-icon>
+                    <ion-label>
+                      <span class="main-address-line">{{ dom.colonia }}</span>
+                      <p class="ion-text-wrap">{{ dom.calle }} #{{ dom.numero }}</p>
+                    </ion-label>
+                    <ion-note slot="end" color="medium">Ver Detalles</ion-note>
+                  </ion-item>
+
+                  <div class="ion-padding accordion-content" slot="content">
+                    <ion-text color="dark">
+                      <p><strong>Colonia:</strong> {{ dom.colonia }}</p>
+                      <p><strong>Calle y Número:</strong> {{ dom.calle }} #{{ dom.numero }}</p>
+                      <p><strong>Referencias:</strong> {{ dom.referencia || 'N/A' }}</p>
+                      <p><strong>Ciudad y CP:</strong> {{ dom.ciudad }} (C.P. {{ dom.cp }})</p>
+                    </ion-text>
+
+                    <ion-button expand="block" fill="outline" color="primary" class="ion-margin-top">
+                      <ion-icon slot="start" name="map-outline"></ion-icon> Crear Envio
+                    </ion-button>
+                  </div>
+
+                </ion-accordion>
+              </ion-accordion-group>
+            </ion-list>
+
+            <!-- <div class="container text-center">
+
+            </div> -->
+
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="setOpen(true)">
+    <ion-fab-button class="fab-custom">
+      <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

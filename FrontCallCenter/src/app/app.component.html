@@ -1,0 +1,59 @@
+<ion-menu contentId="main-content" menuId="admin-menu" side="start" class="admin-menu">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menú de Gestión</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content mode="ios">
+    <div class="user-info ion-padding-start ion-padding-top ion-padding-bottom">
+      <!-- <p class="mb-0 fw-bold text-dark">{{ user.username }}</p> -->
+      <!-- <p class="small text-muted mb-0">{{ user.email }}</p> -->
+    </div>
+
+    <ion-list lines="none">
+
+      <ion-item button routerLink="/dashboard" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="stats-chart-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/servicio" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="receipt-outline"></ion-icon>
+        <ion-label>Administrar Pedidos</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/conductores" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="car-outline"></ion-icon>
+        <ion-label>Conductores</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/clientes" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="people-circle-outline"></ion-icon>
+        <ion-label>Clientes</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/rutas" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="swap-vertical-outline"></ion-icon>
+        <ion-label>Rutas de Entrega</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/tipos-servicio" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="cube-outline"></ion-icon>
+        <ion-label>Tipos de Servicio</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/domicilios" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="pin-outline"></ion-icon>
+        <ion-label>Domicilios</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/estados-servicio" routerDirection="root" routerLinkActive="active">
+        <ion-icon slot="start" name="toggle-outline"></ion-icon>
+        <ion-label>Estados de Servicio</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>F

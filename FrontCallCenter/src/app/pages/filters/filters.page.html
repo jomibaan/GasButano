@@ -1,0 +1,195 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Pedido</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" mode="ios" class="ion-padding report-page-content">
+
+  <!-- Contenedor principal para centrar -->
+  <div class="filter-container">
+
+    <!-- Tarjeta de Filtros -->
+    <ion-card class="filter-card shadow-sm">
+      <ion-card-header class="filter-header">
+        <ion-card-title class="ion-text-center section-title">
+          <ion-icon name="filter-outline" color="primary"></ion-icon>
+          Generar Reporte de Servicios
+        </ion-card-title>
+        <ion-card-subtitle class="ion-text-center">
+          Selecciona los filtros para tu consulta
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content class="ion-padding-top">
+
+        <!-- ====================================================== -->
+        <!-- SECCIÓN DE FECHAS (MODIFICADA) -->
+        <!-- ====================================================== -->
+        <h3 class="filter-subtitle">Rango de Fechas</h3>
+
+        <!-- 1. TIPO DE FECHA -->
+        <ion-item class="custom-input-item mb-3" lines="none">
+          <ion-icon slot="start" name="time-outline"></ion-icon>
+          <!-- 💡 CONEXIÓN NGMODEL 1 -->
+          <ion-select [(ngModel)]="fechaTipo" label="Filtrar por Fecha de:" label-placement="floating"
+            interface="popover">
+            <ion-select-option value="createdAt">(Por Defecto) Pedido Creado</ion-select-option>
+            <ion-select-option value="fecha_programado">Fecha Programada</ion-select-option>
+            <ion-select-option value="fecha_surtido">Fecha de Surtido</ion-select-option>
+            <ion-select-option value="fecha_cancelado">Fecha de Cancelación</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- 2. RANGO DE FECHAS -->
+        <ion-grid fixed>
+          <ion-row>
+            <!-- Fecha de Inicio -->
+            <ion-col size="12" size-md="6">
+              <ion-item class="custom-input-item mb-3" lines="none">
+                <ion-icon slot="start" name="calendar-clear-outline"></ion-icon>
+                <!-- 💡 CONEXIÓN NGMODEL 2 -->
+                <ion-input [(ngModel)]="fechaInicio" label="Desde (Fecha Inicio)" label-placement="floating"
+                  type="date"></ion-input>
+              </ion-item>
+            </ion-col>
+            <!-- Fecha de Fin -->
+            <ion-col size="12" size-md="6">
+              <ion-item class="custom-input-item mb-3" lines="none">
+                <ion-icon slot="start" name="calendar-outline"></ion-icon>
+                <!-- 💡 CONEXIÓN NGMODEL 3 -->
+                <ion-input [(ngModel)]="fechaFin" label="Hasta (Fecha Fin)" label-placement="floating"
+                  type="date"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <h3 class="filter-subtitle ion-margin-top">Categorías</h3>
+        <ion-grid fixed>
+          <ion-row>
+            <!-- Estado del Servicio -->
+            <ion-col size="12" size-md="6">
+              <ion-item class="custom-input-item mb-3" lines="none">
+                <ion-icon slot="start" name="toggle-outline"></ion-icon>
+                <ion-select [(ngModel)]="estadoId" label="Estado del Servicio" label-placement="floating">
+
+                  <!--
+            💡 SOLUCIÓN AQUÍ:
+            Añadimos una opción manual para "Todos".
+            Al seleccionarla, 'estadoId' se vuelve 'null' y el servicio ignora este filtro.
+          -->
+                  <ion-select-option [value]="null">Todos los Estados</ion-select-option>
+
+                  <!-- Tu lista de estados (ngFor) -->
+                  <ion-select-option *ngFor="let e of estados_servicio" [value]="e.documentId">
+                    {{ e.tipo }}
+                  </ion-select-option>
+
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <!-- Ruta -->
+            <ion-col size="12" size-md="6">
+              <ion-item class="custom-input-item mb-3" lines="none">
+                <ion-icon slot="start" name="map-outline"></ion-icon>
+                <ion-select [(ngModel)]="rutaId" label="Ruta Asignada" label-placement="floating">
+
+                  <!-- 💡 SOLUCIÓN AQUÍ (Igual para las rutas) -->
+                  <ion-select-option [value]="null">Todas las Rutas</ion-select-option>
+
+                  <!-- Tu lista de rutas (ngFor) -->
+                  <ion-select-option *ngFor="let ruta of rutas" [value]="ruta.documentId">
+                    {{ ruta.nombre }}
+                  </ion-select-option>
+
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <!-- 💡 CONEXIÓN DEL BOTÓN -->
+        <ion-button (click)="generarReporte()" [disabled]="isLoading" expand="block" size="large"
+          class="btn-principal generate-button shadow-lg">
+
+          <!-- Lógica para mostrar spinner de carga -->
+          <ion-spinner *ngIf="isLoading" slot="start" name="crescent"></ion-spinner>
+          <ion-icon *ngIf="!isLoading" slot="start" name="document-text-outline"></ion-icon>
+
+          {{ isLoading ? 'Generando...' : 'Generar Reporte' }}
+        </ion-button>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="filter-container ion-margin-top" *ngIf="resultadosReporte.length > 0 && !isLoading">
+    <ion-card class="shadow-sm">
+      <ion-list-header color="light">
+        <ion-label class="fw-bold">Resultados Encontrados ({{ resultadosReporte.length }})</ion-label>
+      </ion-list-header>
+      <ion-list [inset]="true">
+
+        <ion-item *ngFor="let servicio of resultadosReporte" class="report-item" button detail>
+
+          <div slot="start" class="status-icon-container">
+
+            <ion-icon
+              [name]="servicio.estado_servicio?.tipo === 'Asignado' ? 'car-sport-outline' : (servicio.estado_servicio?.tipo === 'Cancelado' ? 'close-circle-outline' : 'time-outline')"
+              [color]="servicio.estado_servicio?.tipo === 'Asignado' ? 'success' : (servicio.estado_servicio?.tipo === 'Cancelado' ? 'danger' : 'primary')"
+              class="status-icon">
+            </ion-icon>
+          </div>
+
+
+          <ion-label class="report-label">
+
+
+            <h3 class="client-name">
+              {{ servicio.cliente?.nombres }} {{ servicio.cliente?.apellidos }}
+              <ion-badge color="light" class="report-badge">{{ servicio.tipo_servicio?.nombre }}</ion-badge>
+            </h3>
+
+
+            <p class="address-line">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ servicio.domicilio?.calle }} #{{ servicio.domicilio?.numero }}, {{ servicio.domicilio?.colonia }}
+            </p>
+
+
+            <p class="meta-line">
+              <!-- Ruta -->
+              <span class="meta-item">
+                <ion-icon name="map-outline"></ion-icon>
+                Ruta: <strong>{{ servicio.ruta?.nombre || 'N/A' }}</strong>
+              </span>
+              <!-- Fecha (usamos la fecha de creación como ejemplo) -->
+              <span class="meta-item date-item">
+                <ion-icon name="calendar-outline"></ion-icon>
+                Creado: <strong>{{ servicio.createdAt | date:'dd/MMM/yyyy' }}</strong>
+              </span>
+            </p>
+          </ion-label>
+
+          <div slot="end" class="status-badge-container">
+            <ion-badge
+              [color]="servicio.estado_servicio?.tipo === 'Asignado' ? 'success' : (servicio.estado_servicio?.tipo === 'Cancelado' ? 'danger' : (servicio.estado_servicio?.tipo === 'Registrado' ? 'primary' : 'medium'))">
+              {{ servicio.estado_servicio?.tipo || 'N/A' }}
+            </ion-badge>
+          </div>
+
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
+
+</ion-content>

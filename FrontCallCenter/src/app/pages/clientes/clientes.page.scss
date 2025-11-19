@@ -1,0 +1,168 @@
+.fab-custom {
+  --background: var(--primario);
+  /* Color normal */
+  --background-activated: var(--secundario);
+  /* Color cuando haces click */
+  --background-focused: var(--secundario);
+  /* Color cuando tiene focus */
+  --background-hover: var(--secundario);
+  /* Color al pasar el mouse */
+  --ripple-color: rgba(255, 255, 255, 0.2);
+  /* Efecto ripple */
+  color: #fff;
+  /* Color del icono */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.fab-custom:hover {
+  --background: var(--secundario);
+}
+
+.fab-custom:active {
+  --background: var(--secundario);
+}
+
+.bg-modal {
+  --background: var(--blanco);
+}
+
+/* Estilos para el Modal de Agregar Cliente */
+
+.modal-content-wrapper {
+  max-width: 600px;
+  /* Limita el ancho del formulario en pantallas grandes */
+  margin: 0 auto;
+}
+
+.titulo-modal {
+  font-weight: 600;
+}
+
+/* Estilo para los ítems/inputs personalizados */
+.custom-input-item {
+  --background: #fff;
+  /* Fondo blanco */
+  border-radius: 8px;
+  /* Esquinas suaves */
+  border: 1px solid #ddd;
+  /* Borde sutil */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efecto focus y hover */
+.custom-input-item:focus-within,
+.custom-input-item:hover {
+  border-color: var(--ion-color-primary);
+  /* Resalta el borde al enfocar */
+  box-shadow: 0 0 5px rgba(var(--ion-color-primary-rgb), 0.2);
+}
+
+/* Íconos dentro del input */
+.custom-input-item ion-icon {
+  color: var(--ion-color-medium);
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+/* Estilo del botón de cerrar */
+.btn-cerrar {
+  --color: white;
+}
+
+/* Estilo para el botón de guardar */
+ion-button[type="submit"] {
+  --border-radius: 10px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+
+.btn-delete {
+  font-size: 1rem;
+  height: 32px;
+  color: var(--blanco);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: .75rem;
+  transition: background-color 0.3s;
+  --background: var(--rojo);
+  --background-hover: var(--rojo-dark);
+  --background-activated: var(--rojo-dark);
+}
+
+.btn-ver {
+  font-size: 1rem;
+  height: 32px;
+  color: var(--blanco);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: .75rem;
+  transition: background-color 0.3s;
+  --background: var(--primario);
+  --background-hover: var(--primario-dark);
+  --background-activated: var(--primario-dark);
+}
+
+
+.domicilios-group {
+  padding: 0 10px;
+  // background: var(--gris-claro);
+}
+
+ion-accordion {
+  margin-bottom: 12px;
+  background: var(--blanco);
+  /* Background for the whole accordion card */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+/* 🎯 FIX 1: Remove all internal borders from the ion-item header */
+ion-accordion ion-item {
+  --border-width: 0 !important;
+  --inner-border-width: 0 !important;
+}
+
+/* Header style */
+.accordion-header {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  /* Ensure the color="light" is applied correctly by Ionic or set a background */
+  /* If you still see a gap, you might need to explicitly set background: var(--blanco); here */
+  border-radius: 8px 8px 0 0;
+}
+
+.accordion-header .main-address-line {
+  font-weight: 600;
+  font-size: 1.05em;
+  color: var(--ion-color-dark);
+  display: block;
+}
+
+.accordion-header p {
+  font-size: 0.85em;
+  color: var(--ion-color-medium);
+  margin-top: 2px;
+}
+
+/* Content area styling */
+.accordion-content {
+  background: var(--ion-color-step-50, #f8f8f8);
+  /* 🎯 FIX 2: Removed the border-top that created the unwanted line */
+  border-radius: 0 0 8px 8px;
+}
+
+/* Other styles */
+ion-list {
+  padding-bottom: 0;
+}
+
+ion-list-header {
+  padding-bottom: 0;
+}
