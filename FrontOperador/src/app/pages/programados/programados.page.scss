@@ -1,0 +1,169 @@
+/* CSS para la Vista de Repartidor
+  Prioridad: Legibilidad y botones grandes.
+*/
+
+.driver-view-content {
+  --ion-background-color: #f4f5f8;
+  /* Fondo gris claro */
+}
+
+/* 1. Encabezado Fijo */
+.sticky-route-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 3px solid var(--ion-color-warning);
+}
+
+.sticky-route-header ion-title {
+  font-weight: 600;
+}
+
+.route-list-container {
+  max-width: 800px;
+  /* Centrado en tablets/desktop */
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* 2. Tarjeta de Pedido */
+.delivery-card {
+  border-radius: 12px;
+  margin-bottom: 20px;
+  /* Separación clara entre pedidos */
+  background: white;
+}
+
+/* Encabezado (Cliente y Producto) */
+.card-header-pending {
+  background: var(--ion-color-primary, #3880ff);
+  /* Color de la empresa */
+  color: white;
+  padding: 10px 5px;
+}
+
+.header-item {
+  --background: transparent;
+  --inner-padding-end: 0;
+  color: white;
+}
+
+.stop-number {
+  font-size: 1.4rem;
+  /* MUY GRANDE */
+  font-weight: 700;
+}
+
+.client-name {
+  font-weight: 400;
+  /* Más ligero que el número de parada */
+}
+
+.service-type {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Contenido (Dirección y Notas) */
+.address-content {
+  padding-top: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.address-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.address-line {
+  font-size: 1.3rem;
+  /* TAMAÑO GRANDE */
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.address-line strong {
+  font-weight: 700;
+}
+
+/* Caja de Notas (¡Importante!) */
+.notes-box {
+  display: flex;
+  align-items: center;
+  background: var #fff0f0;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 10px;
+  // margin-top: 15px;
+}
+
+.notes-box ion-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.notes-box p {
+  margin: 0;
+  color: var(#eec1c5);
+  font-size: 0.9rem;
+}
+
+/* 3. Acciones (Botones) */
+.delivery-actions {
+  padding: 10px 8px 8px 8px;
+  background: #fdfdfd;
+}
+
+.action-button {
+  height: 50px;
+  /* Botones ALTOS y fáciles de presionar */
+  font-size: 1rem;
+  /* Texto de botón grande */
+  font-weight: 600;
+  --border-radius: 8px;
+}
+
+.item-surtir {
+
+  max-width: 300px;
+  margin: 10px auto 20px auto;
+  --background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --min-height: 60px;
+
+}
+
+
+.item-surtir ion-icon[slot="start"] {
+  font-size: 1.2rem;
+  color: var(--ion-color-medium);
+  margin-right: 5px;
+}
+
+
+.monto-input-field {
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: right;
+
+
+  margin-right: 8px;
+  margin-top: 10px;
+
+}
+
+.currency-symbol {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}

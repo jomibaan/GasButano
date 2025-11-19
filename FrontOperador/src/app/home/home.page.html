@@ -1,0 +1,215 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Bienvenido {{ user?.personal?.nombre }} {{ user?.personal?.apellidos }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" mode="ios" class="driver-view-content">
+
+  <!-- 1. Encabezado Fijo (Cuántos pedidos le quedan) -->
+  <ion-toolbar color="dark" class="sticky-route-header">
+    <ion-title>Mis Entregas {{ servicioAsignado?.length }}</ion-title>
+    <!-- Asumimos que tienes una variable que cuenta los pendientes -->
+    <!-- <ion-badge slot="end" color="warning">3 Pendientes</ion-badge> -->
+  </ion-toolbar>
+
+  <!-- 2. Contenedor de la Lista de Pedidos -->
+  <div class="route-list-container">
+
+    <!--
+      TARJETA DE PEDIDO
+      (Esto se repetiría en un *ngFor="let servicio of servicios")
+    -->
+    <ion-card class="delivery-card shadow-lg" *ngFor="let servicio of servicioAsignado">
+
+      <!-- ENCABEZADO: Parada #, Cliente y Tipo -->
+      <ion-card-header class="card-header-pending">
+        <ion-item lines="none" class="header-item">
+          <ion-label>
+            <!-- Título grande y claro -->
+            <!-- <h2 class="stop-number">
+              Parada 1: <span class="client-name">Miguel Bañuelos</span>
+            </h2> -->
+            <!-- Información del producto -->
+            <p class="service-type">
+              Producto: <strong>{{ servicio?.tipo_servicio?.nombre }}</strong>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-card-header>
+
+      <!-- CONTENIDO: Dónde y Notas (Lo más importante) -->
+      <ion-card-content class="address-content">
+        <div class="notes-box">
+          <ion-icon name="alert-circle" color="danger"></ion-icon>
+          <p><strong>Notas del Pedido:</strong>{{ servicio.nota }}</p>
+        </div>
+
+        <!-- Dirección (Grande y Clara) -->
+        <h3 class="address-label">Dirección de Entrega:</h3>
+        <p class="address-line">
+          Calle: <strong>{{ servicio?.domicilio?.calle }} #{{ servicio?.domicilio?.numero }}</strong>
+        </p>
+        <p class="address-line">
+          Colonia: <strong>{{ servicio?.domicilio?.colonia }}</strong>
+        </p>
+        <p class="address-line">
+          Código Postal: <strong>{{ servicio?.domicilio?.cp }}</strong>
+        </p>
+
+        <!-- Notas del Cliente (¡Crítico!) -->
+
+
+        <div class="notes-box">
+          <ion-icon name="alert-circle" color="danger"></ion-icon>
+          <p><strong>Observaciones:</strong>{{ servicio?.observacion }}</p>
+        </div>
+      </ion-card-content>
+
+      <!-- 3. ACCIONES (Botones Grandes) -->
+      <ion-footer class="delivery-actions">
+        <ion-row>
+          <!-- Botón de Navegación (abre Waze/Maps) -->
+          <ion-col>
+            <ion-button (click)="navegarAGoogleMaps(servicio, $event)" expand="block" fill="outline" color="primary"
+              class="action-button nav-button">
+
+              <ion-icon slot="start" name="navigate-outline"></ion-icon>
+              Navegar
+            </ion-button>
+          </ion-col>
+          <!-- Botón de Completar (Marca como entregado) -->
+          <ion-col>
+            <ion-button (click)="setOpenServicio(true, servicio)" expand="block" class="btn-principal">
+              <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+              Entregado
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+
+
+    <ion-modal [isOpen]="isModalServicioOpen" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary" class="modal-toolbar">
+            <ion-title class="ion-text-center titulo-modal">Servicio {{ servicioSeleccionado?.nota }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button fill="clear" class="btn-cerrar" (click)="setOpenServicio(false)">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding bg-modal" mode="ios">
+          <ion-list-header color="light">
+            <ion-label>Surtir Pedido</ion-label>
+          </ion-list-header>
+          <ion-list>
+            <ion-item class="item-surtir" lines="none">
+
+              <!-- Icono de Moneda -->
+              <ion-icon slot="start" name="cash-outline" color="primary"></ion-icon>
+
+              <ion-input [(ngModel)]="monto" min-lenght="0" label="Monto a Cobrar" label-placement="floating"
+                type="number" inputmode="decimal" placeholder="0.00" class="monto-input-field">
+              </ion-input>
+
+              <!-- Símbolo de Moneda (UX) -->
+              <span slot="end" class="currency-symbol">$</span>
+            </ion-item>
+
+            <ion-button (click)="surtir()" expand="block" class="btn-principal">
+              Entregar
+            </ion-button>
+          </ion-list>
+
+          <div *ngIf="servicioSeleccionado">
+            <ion-list-header color="light">
+              <ion-label>Detalles del Servicio</ion-label>
+            </ion-list-header>
+            <ion-list [inset]="true">
+              <ion-item lines="full">
+                <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
+                <ion-label>
+                  <h3>Nota del Servicio</h3>
+                  <p class="ion-text-wrap">{{ servicioSeleccionado.nota || 'Sin notas' }}</p>
+                </ion-label>
+              </ion-item>
+              <ion-item lines="inset">
+                <ion-icon name="map-outline" slot="start" color="primary"></ion-icon>
+                <ion-label>
+                  <h3>Domicilio</h3>
+                  <p>{{ servicioSeleccionado?.domicilio.calle }} #{{ servicioSeleccionado.domicilio.numero }}</p>
+                  <p>{{ servicioSeleccionado?.domicilio.colonia }}, {{ servicioSeleccionado.domicilio.cp }}</p>
+                </ion-label>
+              </ion-item>
+
+              <ion-item lines="inset">
+                <ion-icon name="build-outline" slot="start" color="primary"></ion-icon>
+                <ion-label>
+                  <h3>Tipo de Servicio</h3>
+                  <p>{{ servicioSeleccionado.tipo_servicio?.nombre || 'No especificado' }}</p>
+                </ion-label>
+              </ion-item>
+
+
+              <ion-item lines="full">
+                <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
+                <ion-label>
+                  <h3>Observaciones</h3>
+                  <p class="ion-text-wrap">{{ servicioSeleccionado.observacion || 'Sin notas' }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+
+  </div>
+</ion-content>
+
+<ion-footer class="shadow">
+  <ion-toolbar class="footer-toolbar">
+    <div class="d-flex justify-content-around align-items-center w-100 h-100">
+
+      <button class="footer-btn" routerLink="/home" routerLinkActive="active">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span class="small mt-1">Asignados</span>
+      </button>
+
+      <button class="footer-btn" routerLink="/programados" routerLinkActive="active">
+        <ion-icon name="alarm-outline"></ion-icon>
+        <span class="small mt-1">Programados</span>
+      </button>
+
+      <button class="footer-btn" routerLink="/cancelados" routerLinkActive="active">
+        <ion-icon name="sad-outline"></ion-icon>
+        <span class="small mt-1">Cancelados</span>
+      </button>
+
+      <button class="footer-btn" routerLink="/surtidos" routerLinkActive="active">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span class="small mt-1">Surtidos</span>
+      </button>
+
+
+      <button class="footer-btn" routerLink="/profile" routerLinkActive="active">
+        <ion-icon name="person-outline"></ion-icon>
+        <span class="small mt-1">Cuenta</span>
+      </button>
+
+    </div>
+  </ion-toolbar>
+</ion-footer>
