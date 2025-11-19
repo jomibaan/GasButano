@@ -1,0 +1,23 @@
+module.exports = ({ env }) => ({
+  email: {
+    config: {
+      provider: 'nodemailer',
+      providerOptions: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, //👈 importante para 465
+        auth: {
+          user: '482200146@alumnos.utzac.edu.mx',
+          pass: 'ylzq ewcp pfyj syvb', // 👈 ojo: debe ser "contraseña de aplicación" de Gmail
+        },
+        tls: {
+          rejectUnauthorized: false, // 👈 evita el error del certificado
+        },
+      },
+      settings: {
+        defaultFrom: '482200146@alumnos.utzac.edu.mx',
+        defaultReplyTo: '482200146@alumnos.utzac.edu.mx',
+      },
+    },
+  },
+});
